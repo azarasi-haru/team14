@@ -14,9 +14,8 @@ public class Audio {
   public static Media bgm = new Media(new File("bgm.wav").toURI().toString());
 
   public static void playBgm(){
-    //音声の再生等の操作を実行できるオブジェクト
     MediaPlayer bgm_play = new MediaPlayer(bgm);
-    //BGM無限ループ
+    // 無限ループ
     bgm_play.setCycleCount(MediaPlayer.INDEFINITE);
     bgm_play.setAutoPlay(true);
   }
