@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import javafx.scene.media.AudioClip;
 
 public class Audio {
+  // used by MapGame.java
   // set BGM
   public static Media bgm = new Media(new File("bgm.wav").toURI().toString());
 
