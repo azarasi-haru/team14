@@ -29,6 +29,7 @@ public class MapGameController implements Initializable {
     chara = new MoveChara(1,1,mapData, score);
     //        mapGroups = new Group[mapData.getHeight()*mapData.getWidth()];
     score = new Score(100);
+    score_result.setText("score: " + score.getScore());
 
     setMapImageViews();
     mapPrint(chara, mapData);
@@ -179,6 +180,7 @@ public class MapGameController implements Initializable {
     mapData = new MapData(21,15);
     chara = new MoveChara(1,1,mapData, score);
     score = new Score(100); // initialize Score
+    score_result.setText("score: " + score.getScore());
 
     setMapImageViews();
 
