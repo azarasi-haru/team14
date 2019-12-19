@@ -11,7 +11,7 @@ public class MapData {
     private static final String mapImageFiles[] = {
         "png/SPACE.png",
         "png/WALL.png",
-        "png/bones.gif",
+        "png/item.png",
         "png/taimatsu.gif",
         "png/SPACE.png"  // not used
     };
