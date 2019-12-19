@@ -18,6 +18,7 @@ public class MoveChara {
   private int posY;
 
   private MapData mapData;
+  private Score score;
 
   private Image[][] charaImages;
   private ImageView[] charaImageViews;
@@ -27,7 +28,7 @@ public class MoveChara {
   private int diffx   = 1;
   private int charaDir;
 
-  MoveChara(int startX, int startY, MapData mapData){
+  MoveChara(int startX, int startY, MapData mapData, Score score){
     this.mapData = mapData;
 
     charaImages = new Image[4][3];
@@ -89,19 +90,24 @@ public class MoveChara {
   }
 
   public boolean move(int dx, int dy){
+    // Score
+    score.getScore();
     if (canMove(dx,dy)){
       posX += dx;
       posY += dy;
+      score.minusScore(1);
       return true;
     } else if(catchSomething(dx, dy, MapData.TYPE_GOAL)){
       // catch TYPE_GOAL
       posX += dx;
       posY += dy;
+      score.minusScore(1);
       return true;
     } else if(catchSomething(dx, dy, MapData.TYPE_ITEM)){
       // catch TYPE_ITEM
       posX += dx;
       posY += dy;
+      score.minusScore(1);
       return true;
     } else {
       return false;

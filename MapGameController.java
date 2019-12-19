@@ -1,3 +1,5 @@
+import java.io.File;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -17,13 +19,18 @@ public class MapGameController implements Initializable {
   public ImageView[] mapImageViews;
   //    public Group[] mapGroups;
 
+  // Score
+  public Score score;
+
   /* Mapの初期化 */
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     mapData = new MapData(21,15);
-    chara = new MoveChara(1,1,mapData);
+    chara = new MoveChara(1,1,mapData, score);
     //        mapGroups = new Group[mapData.getHeight()*mapData.getWidth()];
+    score = new Score(100);
+
     setMapImageViews();
     mapPrint(chara, mapData);
   }
@@ -151,8 +158,11 @@ public class MapGameController implements Initializable {
   /* 新規Ｍapを作成 */
   public void NewMapAction(){
     mapData = new MapData(21,15);
-    chara = new MoveChara(1,1,mapData);
+    chara = new MoveChara(1,1,mapData, score);
+    score = new Score(100); // initialize Score
+
     setMapImageViews();
+
     mapPrint(chara, mapData);
   }
   public void NewMapAction(ActionEvent event){
