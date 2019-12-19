@@ -102,12 +102,14 @@ public class MoveChara {
       posX += dx;
       posY += dy;
       score.minusScore(1);
+      Audio.playGoal();
       return true;
     } else if(catchSomething(dx, dy, MapData.TYPE_ITEM)){
       // catch TYPE_ITEM
       posX += dx;
       posY += dy;
       score.minusScore(1);
+      Audio.playItem();
       return true;
     } else {
       return false;
