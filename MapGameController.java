@@ -1,16 +1,12 @@
-import java.io.File;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.Group;
 
 import javafx.fxml.FXML;
 
@@ -63,18 +59,32 @@ public class MapGameController implements Initializable {
 
   public void keyAction(KeyEvent event){
     KeyCode key = event.getCode();
-    if (key == KeyCode.UP){
-      upButtonAction();
-    } else if (key == KeyCode.LEFT){
-      leftButtonAction();
-    } else if (key == KeyCode.RIGHT){
-      rightButtonAction();
-    } else if (key == KeyCode.DOWN){
-      downButtonAction();
-    } else if (key == KeyCode.G){
-      // Gkey GOAL CHEAT
-      goalButtonAction();
+
+    switch (key) {
+        case DOWN: 
+        case J:
+        case S:
+            downButtonAction();
+            break;
+        case UP:
+        case K:
+        case W:
+            upButtonAction();
+            break;
+        case LEFT:
+        case H:
+        case A:
+            leftButtonAction();
+            break;
+        case RIGHT:
+        case L:
+        case D:
+            rightButtonAction();
+            break;
+        default:
+            System.out.println("無効なキーです");
     }
+
   }
 
   // If There is something on Player Posision.
