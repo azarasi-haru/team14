@@ -104,8 +104,8 @@ public class MapGameController implements Initializable {
     outputAction("UP");
     chara.setCharaDir(MoveChara.TYPE_UP);
     chara.move(0, -1);  // 進めたか否かをtrueかfalseの値で返す
+    score_result.setText("score: " + score.getScore());
     somethingAction();
-
     mapPrint(chara, mapData);
   }
   public void upButtonAction(ActionEvent event) {
@@ -117,6 +117,7 @@ public class MapGameController implements Initializable {
 
     chara.setCharaDir(MoveChara.TYPE_LEFT);
     chara.move(-1, 0);
+    score_result.setText("score: " + score.getScore());
     somethingAction();
     mapPrint(chara, mapData);
   }
@@ -129,6 +130,7 @@ public class MapGameController implements Initializable {
 
     chara.setCharaDir(MoveChara.TYPE_RIGHT);
     chara.move( 1, 0);
+    score_result.setText("score: " + score.getScore());
     somethingAction();
     mapPrint(chara, mapData);
   }
@@ -141,6 +143,7 @@ public class MapGameController implements Initializable {
 
     chara.setCharaDir(MoveChara.TYPE_DOWN);
     chara.move(0, 1);
+    score_result.setText("score: " + score.getScore());
     somethingAction();
     mapPrint(chara, mapData);
   }
