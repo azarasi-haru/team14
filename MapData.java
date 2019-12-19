@@ -12,7 +12,7 @@ public class MapData {
         "png/SPACE.png",
         "png/WALL.png",
         "png/item.png",
-        "png/taimatsu.gif",
+        "png/goal.png",
         "png/SPACE.png"  // not used
     };
 

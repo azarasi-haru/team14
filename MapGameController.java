@@ -50,7 +50,9 @@ public class MapGameController implements Initializable {
     }
   }
 
-  public void func1ButtonAction(ActionEvent event) { }
+  public void func1ButtonAction(ActionEvent event) {
+    goalButtonAction();
+  }
   public void func2ButtonAction(ActionEvent event) { }
   public void func3ButtonAction(ActionEvent event) { }
   public void func4ButtonAction(ActionEvent event) { }
@@ -61,7 +63,7 @@ public class MapGameController implements Initializable {
     KeyCode key = event.getCode();
 
     switch (key) {
-        case DOWN: 
+        case DOWN:
         case J:
         case S:
             downButtonAction();
