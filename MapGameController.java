@@ -12,6 +12,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.Group;
 
+import javafx.fxml.FXML;
+
 public class MapGameController implements Initializable {
   public MapData mapData;
   public MoveChara chara;
@@ -19,6 +21,7 @@ public class MapGameController implements Initializable {
   public ImageView[] mapImageViews;
   //    public Group[] mapGroups;
 
+  @FXML private Label score_result;
   // Score
   public Score score;
 
@@ -148,6 +151,7 @@ public class MapGameController implements Initializable {
   /* GOAL CHEAT */
   public void goalButtonAction(){
     outputAction("GOAL");
+    score_result.setText("score: " + score.getScore());
     NewMapAction();
     mapPrint(chara, mapData);
   }

@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 public class Score {
 
     private static int score;
-    @FXML private static Label score_result;
 
     // initial score
     Score(int n){
@@ -53,9 +52,5 @@ public class Score {
     public static int getScore(){
       System.out.println("get score: " + score);
       return score;
-    }
-
-    public static void printScore(){
-      score_result.setText("score: " + getScore());
     }
 }
