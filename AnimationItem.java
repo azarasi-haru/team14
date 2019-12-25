@@ -15,6 +15,7 @@ public class AnimationItem extends AnimationTimer {
     private long      preCount  = 0L;
     private boolean   isPlus    = true;
 
+    //コンストラクタ
     public AnimationItem(ImageView imageView, Image[] images, boolean autoStart) {
         this.imageView = imageView;
         this.images    = images;
@@ -24,6 +25,12 @@ public class AnimationItem extends AnimationTimer {
         }
     }
 
+    //imagesのゲッタ
+    public Image[] getImages() {
+        return images;
+    }
+
+    //アニメーション本体
     @Override
     public void handle(long now) {
         if (startTime == 0) {
