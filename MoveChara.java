@@ -11,7 +11,7 @@ public class MoveChara {
 
   private final String[] dirStrings  = { "d", "l", "r", "u" };
   private final String[] kindStrings = { "1", "2", "3" };
-  private final String pngPathBefore = "png/neko";
+  private final String pngPathBefore = "png/neko/neko";
   private final String pngPathAfter  = ".png";
 
   private int posX;
@@ -140,6 +140,7 @@ public class MoveChara {
     }
     return false;
   }
+  
   // キャラの移動した位置に,指定したアイテムがあればtrue返す by KUBOTA
   public boolean catchSomething(int type){
     if (mapData.getMap(posX, posY) == type){
