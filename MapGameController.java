@@ -56,7 +56,9 @@ public class MapGameController implements Initializable {
   }
   public void func2ButtonAction(ActionEvent event) { }
   public void func3ButtonAction(ActionEvent event) { }
-  public void func4ButtonAction(ActionEvent event) { }
+  public void func4ButtonAction(ActionEvent event) {
+    MapGame.getInstance().toResult();
+  }
 
   /* keyActionメソッド: 各キーが押された時の処理 */
 

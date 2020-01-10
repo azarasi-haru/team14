@@ -15,7 +15,7 @@ import javafx.fxml.FXMLLoader;
 public class MapGame extends Application {
 
   Stage stage;
-  Scene start, game;
+  Scene start, game, result;
 
   //画面遷移用に外部クラスに渡す自身のインスタンス
   public static MapGame singleton;
@@ -42,6 +42,11 @@ public class MapGame extends Application {
   public void toGame() {
     game = setPage("MapGame.fxml");
     stage.setScene(game);
+  }
+
+  public void toResult() {
+    result = setPage("Result.fxml");
+    stage.setScene(result);
   }
 
   //fxmlファイルの読み込み
