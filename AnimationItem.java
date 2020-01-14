@@ -42,7 +42,7 @@ public class AnimationItem extends AnimationTimer {
     }
 
     public String getID() {
-        return attribute.getValue() + ":" + identifier;
+        return attribute.getValue() + "," + identifier;
     }
 
     public ImageView getImageView() {

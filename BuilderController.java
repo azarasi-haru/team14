@@ -1,3 +1,8 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -62,7 +67,7 @@ public class BuilderController implements SelectorDelegate, Initializable {
     protected enum Wall {
         brown("brown"),
         blue("blue"),
-        human("human"),
+        human("human"),  // おためし
         metal("metal");
 
         private String name;
@@ -130,6 +135,44 @@ public class BuilderController implements SelectorDelegate, Initializable {
 
     //作成ボタン
     public void decideAction(ActionEvent event) {
+        //一致していないタイトルがあるかどうかの確認
+        final String title = titleField.getText();
+        final File   file  = new File("Maps/" + title + ".csv");
+
+        if (title.equals("") || file.exists()) {
+            System.out.println("タイトルが不正です");
+            return;
+        }
+
+        //壁に穴がないかの確認
+        for (int x = 0; x < data.length; x++) {
+            for (int y = 0; y < data[0].length; y++) {
+                if (shouldWall(x, y) && data[x][y].attribute != AnimationItem.Attribute.Wall)  {
+                    System.out.println("壁に穴が空いています");
+                    return;
+                }
+            }
+        }
+
+        //書き出し
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            PrintWriter printWriter = new PrintWriter(new BufferedWriter(fileWriter));
+
+            file.createNewFile();
+            System.out.println("Maps/"+ file.getName() + " を作成しました");
+
+            for (AnimationItem[] array : data) {
+                for (AnimationItem item : array) {
+                    printWriter.println(item.getID());
+                }
+            }
+
+            System.out.println("Maps/"+ file.getName() + " への書き込みが完了しました");
+            printWriter.close();
+        } catch (IOException e) {
+            System.err.println(e);
+        }
     }
 
     //キャンセルボタン
@@ -143,10 +186,7 @@ public class BuilderController implements SelectorDelegate, Initializable {
 
         for (int x = 0; x < 21; x++) {
             for (int y = 0; y < 15; y++) {
-                //gridPane.add(data[x][y].getImageView(), x, y);
-                ImageView view  = data[x][y].getImageView();
-                GridPane.setConstraints(view, x, y);
-                gridPane.getChildren().addAll(view);
+                gridPane.add(data[x][y].getImageView(), x, y);
             }
         }
     }
