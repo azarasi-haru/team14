@@ -20,7 +20,7 @@ public class AnimationItem extends AnimationTimer {
     private long      preCount  = 0L;
     private boolean   isPlus    = true;
 
-    //コンストラクタ
+    //MapGameBuilder用コンストラクタ
     public AnimationItem(ImageView imageView, Attribute attribute, String id, boolean autoStart) {
         this.imageView  = imageView;
         this.identifier = id;
@@ -36,6 +36,7 @@ public class AnimationItem extends AnimationTimer {
         }
     }
 
+    //MapGame用コンストラクタ
     public AnimationItem(ImageView imageView, String id, boolean autoStart) {
         final String[] dataArray = id.split(",", 0);
 
@@ -44,8 +45,9 @@ public class AnimationItem extends AnimationTimer {
         this.identifier = dataArray[1];
 
         //imagesを設定する
-        this.images = loadImages();
+        //次いじったときに順番を戻す
         System.out.println("complete");
+        this.images = loadImages();
 
         if (autoStart) {
             this.start();
@@ -82,7 +84,7 @@ public class AnimationItem extends AnimationTimer {
                 index         = imgs.length;
 
                 for (int i = 0; i < files.length; i++) {
-                    System.out.println("load: " + files[i].getName());
+                    System.out.println("loading: " + files[i].getName());
                     imgs[i] = new Image(dir + "/" + files[i].getName());
                 }
 
