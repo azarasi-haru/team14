@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -34,6 +35,8 @@ public class BuilderController implements SelectorDelegate, Initializable {
         gridPane.getChildren().clear();
         initMap();
         printMap();
+
+        //gridPane.setStyle("-fx-border-color: whitesmoke;" + "-fx-border-width: 10;");
     }
 
     //セレクタにデータを入れるメソッド
@@ -201,6 +204,8 @@ public class BuilderController implements SelectorDelegate, Initializable {
         final ImageView     view    = oldItem.getImageView();
         final AnimationItem newItem = new AnimationItem(view, selector.getItem().attribute, selector.getItem().identifier, false);
 
+        view.setOpacity(1.0);
+
         oldItem.stop();
         newItem.start();
         data[x][y] = newItem;
@@ -211,13 +216,31 @@ public class BuilderController implements SelectorDelegate, Initializable {
         for (int x = 0; x < 21; x++) {
             for (int y = 0; y < 15; y++) {
                 System.out.println("x: " + x + " y: " + y);
+
+                ImageView view = new ImageView();
+                view.setStyle("-fx-background-color: blue;");
+
+                //viewを薄くする処理
+                view.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        view.setOpacity(0.5);
+                    }
+                });
+
+                //viewを濃くする処理
+                view.setOnMouseExited(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        view.setOpacity(1.0);
+                    }
+                });
+
                 if (shouldWall(x, y)) {
                     //壁にする
-                    ImageView view = new ImageView();
                     data[x][y]     = new AnimationItem(view, AnimationItem.Attribute.Wall, Wall.brown.getValue(), true);
                 } else {
                     //空白にする
-                    ImageView view = new ImageView();
                     data[x][y]     = new AnimationItem(view, AnimationItem.Attribute.Space, Space.white.getValue(), true);
                 }
             }
