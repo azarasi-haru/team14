@@ -28,13 +28,24 @@ public class AnimationItem extends AnimationTimer {
         this.attribute = attribute;
 
         //imagesを設定する
-        if (attribute != null) {
-            this.images = loadImages();
-            System.out.println("complete");
-        } else {
-            System.err.println("不正なタイプです");
-            System.exit(0);
+        this.images = loadImages();
+        System.out.println("complete");
+
+        if (autoStart) {
+            this.start();
         }
+    }
+
+    public AnimationItem(ImageView imageView, String id, boolean autoStart) {
+        final String[] dataArray = id.split(",", 0);
+
+        this.imageView  = imageView;
+        this.attribute  = Attribute.valueOf(dataArray[0]);
+        this.identifier = dataArray[1];
+
+        //imagesを設定する
+        this.images = loadImages();
+        System.out.println("complete");
 
         if (autoStart) {
             this.start();
