@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -22,10 +23,18 @@ public class BuilderController implements SelectorDelegate, Initializable {
     @FXML public ImageView selectorView;
     @FXML public GridPane  gridPane;
 
+    //影を落とすエフェクトのインスタンス
+    private ColorAdjust shadow = new ColorAdjust();
+    private ColorAdjust normal = new ColorAdjust();
+
     private Selector selector = new Selector();
 
     //マップデータ
     private AnimationItem[][] data = new AnimationItem[21][15];
+
+    //ドラッグ用
+    private int dragX = 0;
+    private int dragY = 0;
 
     //イニシャライザ
     @Override
@@ -36,15 +45,16 @@ public class BuilderController implements SelectorDelegate, Initializable {
         initMap();
         printMap();
 
-        //gridPane.setStyle("-fx-border-color: whitesmoke;" + "-fx-border-width: 10;");
+        shadow.setBrightness(-0.2);
+        normal.setBrightness(0.0);
     }
 
     //セレクタにデータを入れるメソッド
     @Override
     public void setData(Selector sender) {
         final int allCount = Space.length() + Wall.length();
-        sender.items = new AnimationItem[allCount];
         int count = 0;
+        sender.items = new AnimationItem[allCount];
 
         //空白を追加してるとこ
         for (Space spaceItem : Space.values()) {
@@ -183,32 +193,83 @@ public class BuilderController implements SelectorDelegate, Initializable {
         Platform.exit();
     }
 
-    //マップを描画
-    private void printMap() {
-        gridPane.getChildren().clear();
+    //ドラッグ開始時の処理
+    public void dragDetected(MouseEvent event) {
+        dragX = (int)(event.getX() / 32);
+        dragY = (int)(event.getY() / 32);
+        System.out.println("Drag Started");
+    }
 
-        for (int x = 0; x < 21; x++) {
-            for (int y = 0; y < 15; y++) {
-                gridPane.add(data[x][y].getImageView(), x, y);
+    //ドラッグ時の処理
+    public void dragOnGrid(MouseEvent event) {
+        final int cursorX = (int)(event.getX() / 32);
+        final int cursorY = (int)(event.getY() / 32);
+
+        final int[] rangeX = makeRange(dragX, cursorX);
+        final int[] rangeY = makeRange(dragY, cursorY);
+
+        for (int x = 0; x < data.length; x++) {
+            for (int y = 0; y < data[0].length; y++) {
+                if (included(x, rangeX) && included(y, rangeY)) {
+                    final ImageView view = data[x][y].getImageView();
+                    view.setEffect(shadow);
+                } else {
+                    final ImageView view = data[x][y].getImageView();
+                    view.setEffect(normal);
+                }
             }
         }
     }
 
-    //クリックしたときの動作
-    public void clickGrid(MouseEvent event) {
-        final int x = (int)(event.getX() / 32);
-        final int y = (int)(event.getY() / 32);
-        System.out.println("clicked at:" + x + " " + y);
+    //マウスのボタンを離したときの処理
+    public void mouseReleased(MouseEvent event) {
+        for (int x = 0; x < data.length; x++) {
+            for (int y = 0; y < data[0].length; y++) {
+                final AnimationItem oldItem = data[x][y];
+                final ImageView     view    = oldItem.getImageView();
 
-        final AnimationItem oldItem = data[x][y];
-        final ImageView     view    = oldItem.getImageView();
-        final AnimationItem newItem = new AnimationItem(view, selector.getItem().attribute, selector.getItem().identifier, false);
+                if (view.getEffect() == shadow) {
+                    final AnimationItem newItem = new AnimationItem(view, selector.getItem().attribute, selector.getItem().identifier, false);
+                    data[x][y] = newItem;
 
-        view.setOpacity(1.0);
+                    oldItem.stop();
+                    newItem.start();
+                    view.setEffect(normal);
+                }
+            }
+        }
+    }
 
-        oldItem.stop();
-        newItem.start();
-        data[x][y] = newItem;
+    //範囲を示す配列を作成する
+    private int[] makeRange(int num1, int num2) {
+        if (num1 < num2) {
+            int[] range = new int[num2 - num1 + 1];
+            for (int i = 0; i < range.length; i++) {
+                range[i] = num1 + i;
+            }
+
+            return range;
+        } else {
+            int[] range = new int[num1 - num2 + 1];
+            for (int i = 0; i < range.length; i++) {
+                range[i] = num2 + i;
+            }
+
+            return range;
+        }
+    }
+
+    //配列が値を含んでいるか確認
+    private boolean included(int num, int[] array) {
+        boolean ans = false;
+
+        for (int i : array) {
+            if (i == num) {
+                ans = true;
+            }
+        }
+
+        return ans;
     }
 
     //空マップデータを作成
@@ -216,32 +277,30 @@ public class BuilderController implements SelectorDelegate, Initializable {
         for (int x = 0; x < 21; x++) {
             for (int y = 0; y < 15; y++) {
                 System.out.println("x: " + x + " y: " + y);
+                ImageView view   = new ImageView();
 
-                ImageView view = new ImageView();
-                view.setStyle("-fx-background-color: blue;");
-
-                //viewを薄くする処理
+                //viewにカーソルを合わせたときの処理
                 view.setOnMouseEntered(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        view.setOpacity(0.5);
+                        view.setEffect(shadow);
                     }
                 });
 
-                //viewを濃くする処理
+                //viewからカーソルを出したときの処理
                 view.setOnMouseExited(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        view.setOpacity(1.0);
+                        view.setEffect(normal);
                     }
                 });
 
                 if (shouldWall(x, y)) {
                     //壁にする
-                    data[x][y]     = new AnimationItem(view, AnimationItem.Attribute.Wall, Wall.brown.getValue(), true);
+                    data[x][y] = new AnimationItem(view, AnimationItem.Attribute.Wall, Wall.brown.getValue(), true);
                 } else {
                     //空白にする
-                    data[x][y]     = new AnimationItem(view, AnimationItem.Attribute.Space, Space.white.getValue(), true);
+                    data[x][y] = new AnimationItem(view, AnimationItem.Attribute.Space, Space.white.getValue(), true);
                 }
             }
         }
@@ -253,6 +312,18 @@ public class BuilderController implements SelectorDelegate, Initializable {
             return true;
         } else {
             return false;
+        }
+    }
+
+    //マップを描画
+    private void printMap() {
+        gridPane.getChildren().clear();
+
+        for (int x = 0; x < 21; x++) {
+            for (int y = 0; y < 15; y++) {
+                ImageView view = data[x][y].getImageView();
+                gridPane.add(view, x, y);
+            }
         }
     }
 }
