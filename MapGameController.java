@@ -172,6 +172,7 @@ public class MapGameController implements Initializable {
   public void goalButtonAction(){
     outputAction("GOAL");
     score_result.setText("score: " + score.getScore());
+    score.writefile();
     NewMapAction();
     mapPrint(chara, mapData);
   }
@@ -181,7 +182,7 @@ public class MapGameController implements Initializable {
 
   /* 新規Ｍapを作成 */
   public void NewMapAction(){
-    MoveChara.animalNumber=0;  
+    MoveChara.animalNumber=0;
     mapData = new MapData(21,15);
     chara = new MoveChara(1,1,mapData, score);
     score = new Score(100); // initialize Score
