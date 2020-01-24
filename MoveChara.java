@@ -51,7 +51,7 @@ public class MoveChara {
     posX = startX;
     posY = startY;
 
-    CharaDir(TYPE_DOWN);
+    setCharaDir(TYPE_DOWN);
   }
 
   public void changeCount(){
@@ -73,7 +73,7 @@ public class MoveChara {
     return posY;
   }
 
-  public void CharaDir(int cd){
+  public void setCharaDir(int cd){
     charaDir = cd;
     for (int i=0; i<4; i++) {
       if (i == charaDir) {

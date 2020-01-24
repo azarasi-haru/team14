@@ -181,6 +181,7 @@ public class MapGameController implements Initializable {
 
   /* 新規Ｍapを作成 */
   public void NewMapAction(){
+    MoveChara.animalNumber=0;  
     mapData = new MapData(21,15);
     chara = new MoveChara(1,1,mapData, score);
     score = new Score(100); // initialize Score
@@ -200,12 +201,12 @@ public class MapGameController implements Initializable {
     if(MoveChara.animalNumber==0){
       MoveChara.animalNumber=1;
   chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
-
+    mapPrint(chara, mapData);
     }
     else{
       MoveChara.animalNumber=0;
         chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
-
+    mapPrint(chara, mapData);
 
 
 
