@@ -1,3 +1,5 @@
+import java.io.File;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.*;
 import javafx.scene.image.ImageView;
@@ -6,6 +8,9 @@ public class AnimationItem extends AnimationTimer {
 
     private ImageView imageView;
     private Image[]   images;
+
+    public Attribute attribute;
+    public String    identifier;
 
     //variables for animation
     private int       index     = 0;
@@ -16,18 +21,112 @@ public class AnimationItem extends AnimationTimer {
     private boolean   isPlus    = true;
 
     //コンストラクタ
-    public AnimationItem(ImageView imageView, Image[] images, boolean autoStart) {
-        this.imageView = imageView;
-        this.images    = images;
+    public AnimationItem(ImageView imageView, Attribute attribute, String id, boolean autoStart) {
+        this.imageView  = imageView;
+        this.identifier = id;
+
+        this.attribute = attribute;
+
+        //imagesを設定する
+        this.images = loadImages();
+        System.out.println("complete");
 
         if (autoStart) {
             this.start();
         }
     }
 
-    //imagesのゲッタ
-    public Image[] getImages() {
-        return images;
+    //コンストラクタその２
+    public AnimationItem(ImageView imageView, String id, boolean autoStart) {
+        final String[] dataArray = id.split(",", 0);
+
+        this.imageView  = imageView;
+        this.attribute  = Attribute.valueOf(dataArray[0]);
+        this.identifier = dataArray[1];
+
+        //imagesを設定する
+        this.images = loadImages();
+        System.out.println("complete");
+
+        if (autoStart) {
+            this.start();
+        }
+    }
+
+    public String getID() {
+        return attribute.getValue() + "," + identifier;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+/*  なんかできそう
+    public void setOpacity(double opacity) {
+        for (Image image : images) {
+            image.setOpacity(opacity);
+        }
+    }
+*/
+
+    //ディレクトリから画像をロードする
+    private Image[] loadImages() {
+        try {
+            String  dir   = "png/" + attribute.getValue() + "/" + identifier; 
+            File[]  files = new File(dir).listFiles();
+
+            if (files[0].isDirectory()) {
+                File[]  downFiles = new File(dir + "/down").listFiles();
+                Image[] imgs      = new Image[downFiles.length];
+                index             = imgs.length;
+
+                for (int i = 0; i < files.length; i++) {
+                    System.out.println("load: " + downFiles[i].getName());
+                    imgs[i] = new Image(dir + "/" + downFiles[i].getName());
+                }
+
+                return imgs;
+            } else {
+                Image[] imgs  = new Image[files.length];
+                index         = imgs.length;
+
+                for (int i = 0; i < files.length; i++) {
+                    System.out.println("load: " + files[i].getName());
+                    imgs[i] = new Image(dir + "/" + files[i].getName());
+                }
+
+                return imgs;
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
+    }
+
+    //タイプを定義
+    public enum Attribute {
+        Start("Start"),
+        Goal("Goal"),
+        Wall("Wall"),
+        Space("Space"),
+        Enemy("Enemy");
+
+        private String name;
+
+        private Attribute(String name) {
+            this.name = name;
+        }
+
+        public String getValue() {
+            return name;
+        }
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        imageView.setImage(images[0]);
     }
 
     //アニメーション本体
@@ -47,9 +146,24 @@ public class AnimationItem extends AnimationTimer {
                 index--;
             }
 
-            if (index < 0 || images.length <= index) {
-                index  = 1;
-                isPlus = !isPlus;
+            if (index < 0) {
+                if (1 < images.length) {
+                    index = 1;
+                } else {
+                    index = 0;
+                }
+                
+                isPlus = true;
+            }
+
+            if (images.length <= index) {
+                if (1 < images.length) {
+                    index = images.length - 2;
+                } else {
+                    index = 0;
+                }
+
+                isPlus = false;
             }
 
             imageView.setImage(images[index]);

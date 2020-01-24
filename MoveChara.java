@@ -1,6 +1,5 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
 import javafx.animation.AnimationTimer;
 
 public class MoveChara {
@@ -11,7 +10,8 @@ public class MoveChara {
 
   private final String[] dirStrings  = { "d", "l", "r", "u" };
   private final String[] kindStrings = { "1", "2", "3" };
-  private final String pngPathBefore = "png/neko/neko";
+  static int animalNumber=0;
+  private final String[] pngPathBefore= {"png/neko/neko","png/eko/neko"};
   private final String pngPathAfter  = ".png";
 
   private int posX;
@@ -20,9 +20,9 @@ public class MoveChara {
   private MapData mapData;
   private Score score;
 
-  private Image[][] charaImages;
-  private ImageView[] charaImageViews;
-  private ImageAnimation[] charaImageAnimations;
+  private Image[][][] charaImages;
+  private ImageView[][] charaImageViews;
+  private ImageAnimation[][] charaImageAnimations;
 
   private int count   = 0;
   private int diffx   = 1;
@@ -30,18 +30,22 @@ public class MoveChara {
 
   MoveChara(int startX, int startY, MapData mapData, Score score){
     this.mapData = mapData;
-
-    charaImages = new Image[4][3];
-    charaImageViews = new ImageView[4];
-    charaImageAnimations = new ImageAnimation[4];
+    int animals = 2;
+    charaImages = new Image[animals][4][3];
+    charaImageViews = new ImageView[animals][4];
+    charaImageAnimations = new ImageAnimation[animals][4];
 
     for (int i=0; i<4; i++) {
-      charaImages[i] = new Image[3];
+      charaImages[0][i] = new Image[3];
+      charaImages[1][i] = new Image[3];
       for (int j=0; j<3; j++) {
-        charaImages[i][j] = new Image(pngPathBefore + dirStrings[i] + kindStrings[j] + pngPathAfter);
+        charaImages[0][i][j] = new Image(pngPathBefore[0] + dirStrings[i] + kindStrings[j] + pngPathAfter);
+        charaImages[1][i][j] = new Image(pngPathBefore[1] + dirStrings[i] + kindStrings[j] + pngPathAfter);
       }
-      charaImageViews[i] = new ImageView(charaImages[i][0]);
-      charaImageAnimations[i] = new ImageAnimation( charaImageViews[i], charaImages[i] );
+      charaImageViews[0][i] = new ImageView(charaImages[0][i][0]);
+      charaImageViews[1][i] = new ImageView(charaImages[1][i][0]);
+      charaImageAnimations[0][i] = new ImageAnimation( charaImageViews[0][i], charaImages[0][i] );
+      charaImageAnimations[1][i] = new ImageAnimation( charaImageViews[1][i], charaImages[1][i] );
     }
 
     posX = startX;
@@ -73,9 +77,9 @@ public class MoveChara {
     charaDir = cd;
     for (int i=0; i<4; i++) {
       if (i == charaDir) {
-        charaImageAnimations[i].start();
+        charaImageAnimations[animalNumber][i].start();
       } else {
-        charaImageAnimations[i].stop();
+        charaImageAnimations[animalNumber][i].stop();
       }
     }
   }
@@ -91,24 +95,24 @@ public class MoveChara {
 
   public boolean move(int dx, int dy){
     // Score
-    score.getScore();
+    Score.getScore();
     if (canMove(dx,dy)){
       posX += dx;
       posY += dy;
-      score.minusScore(1);
+      Score.minusScore(1);
       return true;
     } else if(catchSomething(dx, dy, MapData.TYPE_GOAL)){
       // catch TYPE_GOAL
       posX += dx;
       posY += dy;
-      score.minusScore(1);
+      Score.minusScore(1);
       Audio.playGoal();
       return true;
     } else if(catchSomething(dx, dy, MapData.TYPE_ITEM)){
       // catch TYPE_ITEM
       posX += dx;
       posY += dy;
-      score.minusScore(1);
+      Score.minusScore(1);
       Audio.playItem();
       return true;
     } else {
@@ -140,7 +144,7 @@ public class MoveChara {
     }
     return false;
   }
-  
+
   // キャラの移動した位置に,指定したアイテムがあればtrue返す by KUBOTA
   public boolean catchSomething(int type){
     if (mapData.getMap(posX, posY) == type){
@@ -156,7 +160,7 @@ public class MoveChara {
   // by KUBOTA HARUKI
 
   public ImageView getCharaImageView(){
-    return charaImageViews[charaDir];
+    return charaImageViews[animalNumber][charaDir];
   }
 
   private class ImageAnimation extends AnimationTimer {

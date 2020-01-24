@@ -54,9 +54,13 @@ public class MapGameController implements Initializable {
   public void func1ButtonAction(ActionEvent event) {
     goalButtonAction();
   }
-  public void func2ButtonAction(ActionEvent event) { }
+  public void func2ButtonAction(ActionEvent event) {
+    changeAnimal();
+  }
   public void func3ButtonAction(ActionEvent event) { }
-  public void func4ButtonAction(ActionEvent event) { }
+  public void func4ButtonAction(ActionEvent event) {
+    MapGame.getInstance().toResult();
+  }
 
   /* keyActionメソッド: 各キーが押された時の処理 */
 
@@ -177,6 +181,7 @@ public class MapGameController implements Initializable {
 
   /* 新規Ｍapを作成 */
   public void NewMapAction(){
+    MoveChara.animalNumber=0;  
     mapData = new MapData(21,15);
     chara = new MoveChara(1,1,mapData, score);
     score = new Score(100); // initialize Score
@@ -188,6 +193,27 @@ public class MapGameController implements Initializable {
   }
   public void NewMapAction(ActionEvent event){
     NewMapAction();
+  }
+
+  /*動物の変更*/
+  public void changeAnimal(){
+    System.out.println("change animal");
+    if(MoveChara.animalNumber==0){
+      MoveChara.animalNumber=1;
+  chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
+    mapPrint(chara, mapData);
+    }
+    else{
+      MoveChara.animalNumber=0;
+        chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
+    mapPrint(chara, mapData);
+
+
+
+    }
+  }
+  public void changeAnimal(ActionEvent event){
+    changeAnimal();
   }
 
   /* Viewに画像を反映する */
