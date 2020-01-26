@@ -1,3 +1,5 @@
+import javafx.scene.image.ImageView;
+
 public class BuiltGameChara {
 
     final static int DOWN  = 0;
@@ -8,13 +10,16 @@ public class BuiltGameChara {
     public int x;
     public int y;
 
+    private ImageView view;
+
     private int currentDir  = 0;
     private int currentForm = 0;
 
     CharaType type;
     AnimationItem[][]  forms;
 
-    BuiltGameChara(int x, int y, CharaType type) {
+    BuiltGameChara(ImageView view, int x, int y, CharaType type) {
+        this.view = view;
         this.x = x;
         this.y = y;
         this.type = type;
@@ -85,11 +90,15 @@ public class BuiltGameChara {
     }
 
     //指定した座標に移動
-    public void goPos(int x, int y) {
+    public void setPos(int x, int y) {
         forms[currentForm][currentDir].stop();
         currentDir = DOWN;
         forms[currentForm][currentDir].start();
         this.x = x;
         this.y = y;
+    }
+
+    public ImageView getImageView() {
+        return view;
     }
 }
