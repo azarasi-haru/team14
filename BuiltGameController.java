@@ -11,10 +11,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
 
 public class BuiltGameController implements Initializable {
 
     @FXML public GridPane gridPane;
+
+    @FXML public Button   button_down;
+    @FXML public Button   button_left;
+    @FXML public Button   button_right;
+    @FXML public Button   button_up;
+    @FXML public Button   button_A;
+    @FXML public Button   button_B;
 
     private BuiltGameChara player = new BuiltGameChara(new ImageView(), 1, 1, CharaType.Player);
 
@@ -27,6 +35,14 @@ public class BuiltGameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         player.setPos(1,1);
+
+        gridPane.getStyleClass().add("display");
+        button_down.getStyleClass().add("button");
+        button_left.getStyleClass().add("button");
+        button_right.getStyleClass().add("button");
+        button_up.getStyleClass().add("button");
+        button_A.getStyleClass().add("button");
+        button_B.getStyleClass().add("button");
     }
 
     public void setDataFile(String file) {

@@ -29,6 +29,7 @@ public class MapGameBuilder extends Application {
         game.setOnKeyPressed(e -> {
             builtGameController.keyAction(e);
         });
+        game.getStylesheets().add("BuiltGameController.css");
         stage.setScene(game);
         builtGameController.setDataFile(builderController.titleField.getText());
     }

@@ -1,0 +1,15 @@
+.button {
+    -fx-background-color: #54585a;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgb(0, 0, 0, 0.6), 5, 0.0, 0, 2); /* 影をつける */
+}
+
+.button:pressed {
+    -fx-background-color: #000000;
+    -fx-effect: dropshadow(three-pass-box, rgb(0, 0, 0, 0.6), 3, 0.0, 0, 1); /* 影を変化させる */
+}
+
+.display {
+    -fx-background-color: #000000;
+    -fx-effect: innershadow(three-pass-box, rgb(0, 0, 0, 0.6), 20, 0.0, 0, 0);
+}
