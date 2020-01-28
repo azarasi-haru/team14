@@ -1,13 +1,5 @@
-import java.io.File;
-
 import javafx.application.Application;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +10,7 @@ public class MapGame extends Application {
   Scene start, game, result;
 
   //画面遷移用に外部クラスに渡す自身のインスタンス
-  public static MapGame singleton;
+  private static MapGame singleton;
 
   @Override
   public void start(Stage primaryStage) throws Exception {

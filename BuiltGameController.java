@@ -16,7 +16,7 @@ public class BuiltGameController implements Initializable {
 
     @FXML public GridPane gridPane;
 
-    private BuiltGameChara player = new BuiltGameChara(new ImageView(), 0, 0, CharaType.Player);
+    private BuiltGameChara player = new BuiltGameChara(new ImageView(), 1, 1, CharaType.Player);
 
     private AnimationItem[][] mapData = new AnimationItem[21][15];
 
@@ -26,7 +26,13 @@ public class BuiltGameController implements Initializable {
     //イニシャライザ
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        player.setPos(1,1);
+    }
+
+    public void setDataFile(String file) {
+        dataFile = file;
         loadMap();
+        printMap();
     }
 
     //キーボードが押されたときの処理
@@ -68,6 +74,8 @@ public class BuiltGameController implements Initializable {
         if (canMoveTo(x, y)) {
             player.goDown();
         }
+
+        printMap();
     }
 
     //左移動
@@ -79,6 +87,8 @@ public class BuiltGameController implements Initializable {
         if (canMoveTo(x, y)) {
             player.goLeft();
         }
+
+        printMap();
     }
 
     //右移動
@@ -90,6 +100,8 @@ public class BuiltGameController implements Initializable {
         if (canMoveTo(x, y)) {
             player.goRight();
         }
+
+        printMap();
     }
     
     //上移動
@@ -101,6 +113,8 @@ public class BuiltGameController implements Initializable {
         if (canMoveTo(x, y)) {
             player.goUp();
         }
+
+        printMap();
     }
 
     //動けるかどうかの判定
@@ -127,7 +141,7 @@ public class BuiltGameController implements Initializable {
                     //１行読み込んでインスタンスを作成
                     String line;
                     if ((line = bufferedReader.readLine()) != null) {
-                        System.out.println("アイテムを読み込みました (" + x + ", " + y + ")");
+                        System.out.println("アイテムを読み込みます (" + x + ", " + y + ")");
 
                         ImageView     view    = new ImageView();
                         AnimationItem newItem = new AnimationItem(view, line, false);

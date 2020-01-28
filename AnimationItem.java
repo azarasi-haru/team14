@@ -111,6 +111,7 @@ public class AnimationItem extends AnimationTimer {
         Wall("Wall"),
         Space("Space"),
         Item("Item"),
+        Player("Chara"),
         Enemy("Enemy");
 
         private String name;

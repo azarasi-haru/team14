@@ -1,3 +1,5 @@
+import java.io.File;
+
 import javafx.scene.image.ImageView;
 
 public class BuiltGameChara {
@@ -12,7 +14,7 @@ public class BuiltGameChara {
 
     private ImageView view;
 
-    private int currentDir  = 0;
+    private int direction   = 0;
     private int currentForm = 0;
 
     CharaType type;
@@ -23,6 +25,29 @@ public class BuiltGameChara {
         this.x = x;
         this.y = y;
         this.type = type;
+        loadItems();
+    }
+
+    //AnimationItemを作成する
+    private void loadItems() {
+        try {
+            String dir   = "png/Chara/";
+            File[] files = new File(dir).listFiles();
+            forms = new AnimationItem[files.length][4];
+
+            for (int i = 0; i < files.length; i++) {
+                String          formName  = files[i].getName();
+                AnimationItem   downItem  = new AnimationItem(view, AnimationItem.Attribute.Player, formName + "/down",  false);
+                AnimationItem   leftItem  = new AnimationItem(view, AnimationItem.Attribute.Player, formName + "/left",  false);
+                AnimationItem   rightItem = new AnimationItem(view, AnimationItem.Attribute.Player, formName + "/right", false);
+                AnimationItem   upItem    = new AnimationItem(view, AnimationItem.Attribute.Player, formName + "/up",    false);
+                AnimationItem[] form      = {downItem, leftItem, rightItem, upItem};
+
+                forms[i] = form;
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
     //攻撃
@@ -33,67 +58,67 @@ public class BuiltGameChara {
     public void transform() {
     }
 
-    //下移動したときの座標
+    //下移動したときの座標 & 方向転換
     public int[] downPos() {
         final int[] pos = {x, y + 1};
+        forms[currentForm][direction].stop();
+        direction = DOWN;
+        forms[currentForm][direction].start();
         return pos;
     }
 
-    //左移動したときの座標
+    //左移動したときの座標 & 方向転換
     public int[] leftPos() {
         final int[] pos = {x - 1, y};
+        forms[currentForm][direction].stop();
+        direction = LEFT;
+        forms[currentForm][direction].start();
         return pos;
     }
 
-    //右移動したときの座標
+    //右移動したときの座標 & 方向転換
     public int[] rightPos() {
         final int[] pos = {x + 1, y};
+        forms[currentForm][direction].stop();
+        direction = RIGHT;
+        forms[currentForm][direction].start();
         return pos;
     }
 
-    //上移動したときの座標
+    //上移動したときの座標 & 方向転換
     public int[] upPos() {
         final int[] pos = {x, y - 1};
+        forms[currentForm][direction].stop();
+        direction = UP;
+        forms[currentForm][direction].start();
         return pos;
     }
 
     //下移動
     public void goDown() {
-        forms[currentForm][currentDir].stop();
-        currentDir = DOWN;
-        forms[currentForm][currentDir].start();
         y += 1;
     }
 
     //左移動
     public void goLeft() {
-        forms[currentForm][currentDir].stop();
-        currentDir = LEFT;
-        forms[currentForm][currentDir].start();
         x -= 1;
     }
 
     //右移動
     public void goRight() {
-        forms[currentForm][currentDir].stop();
-        currentDir = RIGHT;
-        forms[currentForm][currentDir].start();
         x += 1;
     }
 
     //上移動
     public void goUp() {
-        forms[currentForm][currentDir].stop();
-        currentDir = UP;
-        forms[currentForm][currentDir].start();
         y -= 1;
     }
 
     //指定した座標に移動
     public void setPos(int x, int y) {
-        forms[currentForm][currentDir].stop();
-        currentDir = DOWN;
-        forms[currentForm][currentDir].start();
+        forms[currentForm][direction].stop();
+        direction = DOWN;
+        forms[currentForm][direction].start();
         this.x = x;
         this.y = y;
     }
