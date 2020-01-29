@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 public class StartController {
 
     @FXML private Button startButton;
+    @FXML private Button startBuilderButton;
 
     public void startAction() {
         MapGame.getInstance().toGame();

@@ -10,9 +10,9 @@ public class MapData {
     public static final int TYPE_OTHERS = 4;
     private static final String mapImageFiles[] = {
         "png/SPACE.png",
-        "png/WALL.png",
-        "png/item.png",
-        "png/goal.png",
+        "png/WALL.gif",
+        "png/item.gif",
+        "png/goal.gif",
         "png/SPACE.png"  // not used
     };
 
