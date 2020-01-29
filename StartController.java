@@ -4,14 +4,14 @@ import javafx.scene.control.Button;
 
 public class StartController {
 
-    @FXML private Button startButton;
-    @FXML private Button startBuilderButton;
+  @FXML private Button startButton;
+  @FXML private Button startBuilderButton;
 
-    public void startAction() {
-        MapGame.getInstance().toGame();
-    }
+  public void startAction() {
+    MapGame.getInstance().toGame();
+  }
 
-    public void startButtonAction(ActionEvent event) {
-        startAction();
-      }
+  public void startButtonAction(ActionEvent event) {
+    startAction();
+  }
 }

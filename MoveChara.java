@@ -106,7 +106,6 @@ public class MoveChara {
       posX += dx;
       posY += dy;
       Score.minusScore(1);
-      Audio.playGoal();
       return true;
     } else if(catchSomething(dx, dy, MapData.TYPE_ITEM)){
       // catch TYPE_ITEM
