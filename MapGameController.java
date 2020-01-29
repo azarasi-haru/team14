@@ -59,6 +59,7 @@ public class MapGameController implements Initializable {
   }
   public void func3ButtonAction(ActionEvent event) { }
   public void func4ButtonAction(ActionEvent event) {
+    Audio.playGoal();
     MapGame.getInstance().toResult();
   }
 

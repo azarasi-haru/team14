@@ -37,7 +37,7 @@ public class MapGame extends Application {
   }
 
   public void toResult() {
-    Score.readfile();
+    
     result = setPage("Result.fxml");
     stage.setScene(result);
   }
