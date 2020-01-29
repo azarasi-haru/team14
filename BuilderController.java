@@ -96,7 +96,7 @@ public class BuilderController implements SelectorDelegate, Initializable {
         }
 
         public static int length() {
-            return Wall.values().length;
+            return Goal.values().length;
         }
 
     }
@@ -105,8 +105,24 @@ public class BuilderController implements SelectorDelegate, Initializable {
     protected enum Wall {
         brown("brown"),
         blue("blue"),
-        human("human"),  // おためし
-        metal("metal");
+        normal("normal"),
+        metal("metal"),
+        link1("link1"),
+        link2("link2"),
+        link3("link3"),
+        link4("link4"),
+        link5("link5"),
+        link6("link6"),
+        link7("link7"),
+        link8("link8"),
+        link9("link9"),
+        link10("link10"),
+        link11("link11"),
+        link12("link12"),
+        link13("link13"),
+        link14("link14"),
+        link15("link15"),
+        link16("link16");
 
         private String name;
 
