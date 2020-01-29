@@ -106,8 +106,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="button_A" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #54585a; -fx-background-radius: 25;" GridPane.rowIndex="2" />
-                        <Button fx:id="button_B" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #54585a; -fx-background-radius: 25;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Button fx:id="button_A" mnemonicParsing="false" onAction="#AButtonPressed" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #54585a; -fx-background-radius: 25;" GridPane.rowIndex="2" />
+                        <Button fx:id="button_B" mnemonicParsing="false" onAction="#BButtonPressed" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #54585a; -fx-background-radius: 25;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="50.0" style="-fx-background-color: #707372; -fx-background-radius: 10;" text="A" textAlignment="CENTER" textFill="#fffefe">
                            <font>
                               <Font size="18.0" />

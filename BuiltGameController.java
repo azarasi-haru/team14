@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable; 
+import javafx.event.ActionEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
@@ -135,6 +136,15 @@ public class BuiltGameController implements Initializable {
     //動けるかどうかの判定
     public boolean canMoveTo(int x, int y) {
         return !(mapData[x][y].attribute == AnimationItem.Attribute.Wall);
+    }
+
+    //Aボタン
+    public void AButtonPressed(ActionEvent event) {
+        player.transform();
+    }
+
+    //Bボタン
+    public void BButtonPressed(ActionEvent event) {
     }
 
     //マップのロード (キャラ位置の初期化もするよ)

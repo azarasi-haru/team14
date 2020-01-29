@@ -56,6 +56,11 @@ public class BuiltGameChara {
 
     //変身
     public void transform() {
+        if (currentForm < forms.length) {
+            forms[currentForm][direction].stop();
+            currentForm++;
+            forms[currentForm][direction].start();
+        }
     }
 
     //下移動したときの座標 & 方向転換
