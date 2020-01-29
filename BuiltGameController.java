@@ -29,7 +29,6 @@ public class BuiltGameController implements Initializable {
     private AnimationItem[][] mapData = new AnimationItem[21][15];
 
     private String dataFile;
-    private int    stage;
 
     //イニシャライザ
     @Override

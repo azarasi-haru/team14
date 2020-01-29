@@ -192,7 +192,7 @@ public class BuilderController implements SelectorDelegate, Initializable {
 
     //キャンセルボタン
     public void exitAction(ActionEvent event) {
-        //Platform.exit();
+        Platform.exit();
         MapGameBuilder.getInstance().toGame();
     }
 
