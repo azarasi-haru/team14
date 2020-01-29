@@ -52,9 +52,14 @@ public class BuilderController implements SelectorDelegate, Initializable {
     //セレクタにデータを入れるメソッド
     @Override
     public void setData(Selector sender) {
-        final int allCount = Space.length() + Wall.length();
+        final int allCount = Goal.length() + Space.length() + Wall.length();
         int count = 0;
         sender.items = new AnimationItem[allCount];
+
+        for (Goal goalItem : Goal.values()) {
+            sender.items[count] = new AnimationItem(selectorView, AnimationItem.Attribute.Goal, goalItem.getValue(), false);
+            count++;
+        }
 
         //空白を追加してるとこ
         for (Space spaceItem : Space.values()) {
@@ -74,6 +79,26 @@ public class BuilderController implements SelectorDelegate, Initializable {
             count++;
         }
 */
+    }
+
+    //ゴールを追加するならココへ
+    protected enum Goal {
+        goal("goal");
+
+        private String name;
+
+        private Goal(String name) {
+            this.name = name;
+        }
+
+        public String getValue() {
+            return name;
+        }
+
+        public static int length() {
+            return Wall.values().length;
+        }
+
     }
 
     //壁を増やすならココへ
