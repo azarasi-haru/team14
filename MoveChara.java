@@ -11,7 +11,7 @@ public class MoveChara {
   private final String[] dirStrings  = { "d", "l", "r", "u" };
   private final String[] kindStrings = { "1", "2", "3" };
   static int animalNumber=0;
-  private final String[] pngPathBefore= {"png/neko/neko","png/eko/neko"};
+  private final String[] pngPathBefore= {"png/neko/neko","png/neko2/neko"};
   private final String pngPathAfter  = ".png";
 
   private int posX;
