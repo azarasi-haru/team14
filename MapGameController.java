@@ -107,6 +107,8 @@ public class MapGameController implements Initializable {
       // If All Items Nothing
       // GOAL!! and Generate New Map!!
       outputAction("GOAL");
+      MapGame.getInstance().toResult();
+      Audio.playGoal();
       goalButtonAction();
     }
   }

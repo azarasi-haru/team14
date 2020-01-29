@@ -106,7 +106,6 @@ public class MoveChara {
       posX += dx;
       posY += dy;
       Score.minusScore(1);
-      Audio.playGoal();
       return true;
     } else if(catchSomething(dx, dy, MapData.TYPE_ITEM)){
       // catch TYPE_ITEM
@@ -114,6 +113,12 @@ public class MoveChara {
       posY += dy;
       Score.minusScore(1);
       Audio.playItem();
+      return true;
+    } else if(catchSomething(dx, dy, MapData.TYPE_HUMAN)){
+      // catch TYPE_ITEM
+      posX += dx;
+      posY += dy;
+      Score.minusScore(1);
       return true;
     } else {
       return false;

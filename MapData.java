@@ -7,12 +7,14 @@ public class MapData {
     public static final int TYPE_WALL   = 1;
     public static final int TYPE_ITEM   = 2;
     public static final int TYPE_GOAL   = 3;
-    public static final int TYPE_OTHERS = 4;
+    public static final int TYPE_HUMAN  = 4;
+    public static final int TYPE_OTHERS = 5;
     private static final String mapImageFiles[] = {
         "png/SPACE.png",
         "png/WALL.gif",
         "png/item.gif",
         "png/goal.gif",
+        "png/human.gif",
         "png/SPACE.png"  // not used
     };
 
@@ -40,6 +42,7 @@ public class MapData {
         fillMap(MapData.TYPE_WALL); //Fill Map TYPE_WALL
         digMap(1, 3);
         putSomething(MapData.TYPE_ITEM, 2);
+        putSomething(MapData.TYPE_HUMAN);
         putSomething(MapData.TYPE_GOAL);
         setImageViews();
     }
