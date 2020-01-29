@@ -1,6 +1,8 @@
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -192,12 +194,12 @@ public class BuilderController implements SelectorDelegate, Initializable {
         //一致していないタイトルがあるかどうかの確認
         final String title = titleField.getText();
         final File   file  = new File("Maps/" + title + ".csv");
-
+/*
         if (title.equals("") || file.exists()) {
             System.out.println("タイトルが不正です");
             return;
         }
-
+*/
         //壁に穴がないかの確認
         for (int x = 0; x < data.length; x++) {
             for (int y = 0; y < data[0].length; y++) {
@@ -231,10 +233,69 @@ public class BuilderController implements SelectorDelegate, Initializable {
         MapGameBuilder.getInstance().toGame();
     }
 
+    //リロードボタン
+    public void reloadAction(ActionEvent event) {
+        try {
+            File file = new File("Maps/" + titleField.getText() + ".csv");
+
+            if (!file.exists()) {
+                System.err.println("ファイルが存在しません");
+                return;
+            }
+
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            for (int x = 0; x < data.length; x++) {
+                for (int y = 0; y < data[0].length; y++) {
+                    data[x][y].stop();
+                    //１行読み込んでインスタンスを作成
+                    String line;
+                    if ((line = bufferedReader.readLine()) != null) {
+                        System.out.println("アイテムを読み込みます (" + x + ", " + y + ")");
+
+                        ImageView     view    = data[x][y].getImageView();
+                        AnimationItem newItem = new AnimationItem(view, line, true);
+
+                        switch (newItem.attribute) {
+                            case Start:
+                                data[x][y] = new AnimationItem(view, "Space:SPACE", true);
+                                break;
+                            case Goal:
+                                data[x][y] = newItem;
+                                break;
+                            case Wall:
+                                data[x][y] = newItem;
+                                break;
+                            case Space:
+                                data[x][y] = newItem;
+                                break;
+                            case Item:
+                                data[x][y] = newItem;
+                                break;
+                            //case Enemy:
+                            //    mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+                            //    break;
+                            default:
+                                System.out.println("無効なアイテムです　(x: " + x + ", y: " + y + ")");
+                        }
+                    } else {
+                        System.err.println("ファイルが終了しました。");
+                        bufferedReader.close();
+                    }
+                }
+            }
+
+            bufferedReader.close();
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+
+    }
+
     //キャンセルボタン
     public void exitAction(ActionEvent event) {
         Platform.exit();
-        MapGameBuilder.getInstance().toGame();
     }
 
     //ドラッグ開始時の処理

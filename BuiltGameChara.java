@@ -32,11 +32,12 @@ public class BuiltGameChara {
     private void loadItems() {
         try {
             String dir   = "png/Chara/";
-            File[] files = new File(dir).listFiles();
+            File[] files = sortThreeFiles(new File(dir).listFiles());
             forms = new AnimationItem[files.length][4];
 
             for (int i = 0; i < files.length; i++) {
                 String          formName  = files[i].getName();
+                System.out.println(formName);
                 AnimationItem   downItem  = new AnimationItem(view, AnimationItem.Attribute.Player, formName + "/down",  false);
                 AnimationItem   leftItem  = new AnimationItem(view, AnimationItem.Attribute.Player, formName + "/left",  false);
                 AnimationItem   rightItem = new AnimationItem(view, AnimationItem.Attribute.Player, formName + "/right", false);
@@ -50,17 +51,54 @@ public class BuiltGameChara {
         }
     }
 
+    //ファイル名でソート
+    private File[] sortThreeFiles(File[] files) {
+        File[] ans = new File[3];
+
+        if (files[0].getName().compareTo(files[1].getName()) < 0 && files[0].getName().compareTo(files[2].getName()) < 0) {
+            ans[0] = files[0];
+            if (files[1].getName().compareTo(files[2].getName()) < 0) {
+                ans[1] = files[1];
+                ans[2] = files[2];
+            } else {
+                ans[1] = files[2];
+                ans[2] = files[1];
+            }
+        } else if (files[0].getName().compareTo(files[1].getName()) > 0 && files[0].getName().compareTo(files[2].getName()) < 0) {
+            ans[0] = files[1];
+            ans[1] = files[0];
+            ans[2] = files[2];
+        } else if (files[0].getName().compareTo(files[1].getName()) < 0 && files[0].getName().compareTo(files[2].getName()) > 0) {
+            ans[0] = files[2];
+            ans[1] = files[0];
+            ans[2] = files[1];
+        } else {
+            ans[2] = files[0];
+            if (files[1].getName().compareTo(files[2].getName()) < 0) {
+                ans[0] = files[1];
+                ans[1] = files[2];
+            } else {
+                ans[0] = files[2];
+                ans[1] = files[1];
+            }
+        }
+
+        return ans;
+    }
+
     //攻撃
     public void attack() {
     }
 
     //変身
     public void transform() {
-        if (currentForm < forms.length) {
-            forms[currentForm][direction].stop();
-            currentForm++;
-            forms[currentForm][direction].start();
+        if (currentForm == forms.length) {
+            return;
         }
+
+        forms[currentForm][direction].stop();
+        currentForm++;
+        forms[currentForm][direction].start();
     }
 
     //下移動したときの座標 & 方向転換

@@ -149,7 +149,6 @@ public class BuiltGameController implements Initializable {
 
     //マップのロード (キャラ位置の初期化もするよ)
     private void loadMap() {
-
         try {
             File file = new File("Maps/" + dataFile + ".csv");
 
@@ -188,10 +187,9 @@ public class BuiltGameController implements Initializable {
                             case Item:
                                 mapData[x][y] = newItem;
                                 break;
-                            case Enemy:
-                                System.out.println("敵をロードしたよ");
-                                mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
-                                break;
+                            //case Enemy:
+                            //    mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+                            //    break;
                             default:
                                 System.out.println("無効なアイテムです　(x: " + x + ", y: " + y + ")");
                         }
