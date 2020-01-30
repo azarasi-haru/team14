@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StartController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ResultController">
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -23,7 +23,7 @@
                   <Font size="36.0" />
                </font>
             </Text>
-            <Button layoutX="141.0" layoutY="332.0" mnemonicParsing="false" onAction="#startButtonAction" prefHeight="59.0" prefWidth="136.0">
+            <Button layoutX="141.0" layoutY="332.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="136.0">
                <graphic>
                   <ImageView fitHeight="49.0" fitWidth="99.0">
                      <image>
@@ -41,7 +41,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="scoreLabal" layoutX="255.0" layoutY="242.0" text="00000">
+            <Label fx:id="scoreLabel" layoutX="255.0" layoutY="242.0" text="00000">
                <font>
                   <Font size="36.0" />
                </font>

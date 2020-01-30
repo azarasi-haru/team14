@@ -50,7 +50,6 @@ public class MapGame extends Application {
       return newScene;
     } catch (Exception e) {
       System.err.println(e);
-      System.out.println("そのようなfxmlファイルはありません.");
     }
     return null;
   }
