@@ -125,6 +125,7 @@ public class MoveChara {
       Audio.playDamage();
       if(mapData.getSomethingNumber(MapData.TYPE_ITEM) == 0){
         //
+        Score.plusScore(200);
       } else if(mapData.getSomethingNumber(MapData.TYPE_ITEM) == 1){
         Score.minusScore(1);
       } else {
