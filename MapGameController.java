@@ -30,6 +30,7 @@ public class MapGameController implements Initializable {
     //        mapGroups = new Group[mapData.getHeight()*mapData.getWidth()];
     score = new Score(1000);
     score_result.setText("score: " + score.getScore());
+    mapGrid.setStyle("-fx-background-color: #FFFFFF;");
 
     setMapImageViews();
     mapPrint(chara, mapData);
