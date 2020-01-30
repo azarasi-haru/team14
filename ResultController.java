@@ -10,10 +10,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ResultController implements Initializable {
 
     @FXML public Label scoreLabel;
+    @FXML public Label Lanking;
 
     @FXML public Button closeButton;
 
@@ -25,10 +28,13 @@ public class ResultController implements Initializable {
           BufferedReader bufferedReader = new BufferedReader(fileReader);
 
           String data;
-
+          ArrayList<Integer> score = new ArrayList<>();
           while((data = bufferedReader.readLine()) != null){
+            score.add(Integer.parseInt(data));
             scoreLabel.setText(data);
           }
+          Collections.sort(score, Collections.reverseOrder());
+          Lanking.setText("1." + score.get(0) + " 2. " + score.get(1) + " 3. " + score.get(2));
           bufferedReader.close();
         }catch(IOException e){
           e.printStackTrace();
