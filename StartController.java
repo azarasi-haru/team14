@@ -10,7 +10,15 @@ public class StartController {
     MapGame.getInstance().toGame();
   }
 
+  public void builderAction() {
+    MapGame.getInstance().toBuilder();
+  }
+
   public void startButtonAction(ActionEvent event) {
     startAction();
+  }
+
+  public void buildButtonAction(ActionEvent event) {
+    builderAction();
   }
 }

@@ -230,7 +230,7 @@ public class BuilderController implements SelectorDelegate, Initializable {
             System.err.println(e);
         }
 
-        MapGameBuilder.getInstance().toGame();
+        MapGame.getInstance().toBuiltGame();
     }
 
     //リロードボタン

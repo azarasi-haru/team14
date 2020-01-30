@@ -37,7 +37,8 @@ public class ResultController implements Initializable {
     public void startButtonAction(ActionEvent event) {
       MapGame.getInstance().toGame();
     }
-    public void closeButtonAction(ActionEvent event) {
-        System.exit(0);
+
+    public void buildButtonAction(ActionEvent event) {
+      MapGame.getInstance().toBuilder();
     }
 }
