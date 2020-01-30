@@ -16,7 +16,9 @@ import java.util.Collections;
 public class ResultController implements Initializable {
 
     @FXML public Label scoreLabel;
-    @FXML public Label Lanking;
+    @FXML public Label rankLabel1;
+    @FXML public Label rankLabel2;
+    @FXML public Label rankLabel3;
 
     @FXML public Button closeButton;
 
@@ -34,7 +36,9 @@ public class ResultController implements Initializable {
             scoreLabel.setText(data);
           }
           Collections.sort(score, Collections.reverseOrder());
-          Lanking.setText("1." + score.get(0) + " 2. " + score.get(1) + " 3. " + score.get(2));
+          rankLabel1.setText("1位." + score.get(0));
+          rankLabel2.setText("2位." + score.get(1));
+          rankLabel3.setText("3位." + score.get(2));
           bufferedReader.close();
         }catch(IOException e){
           e.printStackTrace();
