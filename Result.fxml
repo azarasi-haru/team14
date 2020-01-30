@@ -41,22 +41,22 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="scoreLabel2" layoutX="255.0" layoutY="242.0" text="00000">
+            <Label fx:id="scoreLabel" layoutX="255.0" layoutY="242.0" text="00000">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label fx:id="lanking" layoutX="255.0" layoutY="242.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="scoreLabel1" layoutX="96.0" layoutY="242.0" text="00000">
+            <Label fx:id="rankLabel1" layoutX="96.0" layoutY="281.0" text="00000">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label fx:id="scoreLabel3" layoutX="405.0" layoutY="242.0" text="00000">
+            <Label fx:id="rankLabel3" layoutX="405.0" layoutY="281.0" text="00000">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="rankLabel2" layoutX="255.0" layoutY="281.0" text="00000">
                <font>
                   <Font size="36.0" />
                </font>
