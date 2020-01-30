@@ -46,6 +46,11 @@
                   <Font size="36.0" />
                </font>
             </Label>
+            <Label fx:id="lanking" layoutX="255.0" layoutY="242.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>
