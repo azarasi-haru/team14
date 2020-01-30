@@ -183,6 +183,8 @@ public class MapGameController implements Initializable {
     score.writefile();
     NewMapAction();
     mapPrint(chara, mapData);
+    Audio.playGoal();
+    MapGame.getInstance().toResult();
   }
   public void goalButtonAction(ActionEvent event) {
     goalButtonAction();
