@@ -118,7 +118,14 @@ public class MoveChara {
       // catch TYPE_ITEM
       posX += dx;
       posY += dy;
-      Score.minusScore(1);
+      Audio.playDamage();
+      if(mapData.getSomethingNumber(MapData.TYPE_ITEM) == 0){
+        // 
+      } else if(mapData.getSomethingNumber(MapData.TYPE_ITEM) == 1){
+        Score.minusScore(1);
+      } else {
+        Score.minusScore(100);
+      }
       return true;
     } else {
       return false;
@@ -138,6 +145,16 @@ public class MoveChara {
   public boolean item(){
     if(catchSomething(MapData.TYPE_ITEM)){
       return true;
+    }
+    return false;
+  }
+
+  public boolean human_die(){
+    if(catchSomething(MapData.TYPE_HUMAN)){
+      if(mapData.getSomethingNumber(MapData.TYPE_ITEM) == 0){
+        // If All Items Nothing
+        return true;
+      }
     }
     return false;
   }

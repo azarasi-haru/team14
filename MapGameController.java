@@ -28,7 +28,7 @@ public class MapGameController implements Initializable {
     mapData = new MapData(21,15);
     chara = new MoveChara(1,1,mapData, score);
     //        mapGroups = new Group[mapData.getHeight()*mapData.getWidth()];
-    score = new Score(100);
+    score = new Score(1000);
     score_result.setText("score: " + score.getScore());
 
     setMapImageViews();
@@ -69,28 +69,28 @@ public class MapGameController implements Initializable {
     KeyCode key = event.getCode();
 
     switch (key) {
-        case DOWN:
-        case J:
-        case S:
-            downButtonAction();
-            break;
-        case UP:
-        case K:
-        case W:
-            upButtonAction();
-            break;
-        case LEFT:
-        case H:
-        case A:
-            leftButtonAction();
-            break;
-        case RIGHT:
-        case L:
-        case D:
-            rightButtonAction();
-            break;
-        default:
-            System.out.println("無効なキーです");
+      case DOWN:
+      case J:
+      case S:
+      downButtonAction();
+      break;
+      case UP:
+      case K:
+      case W:
+      upButtonAction();
+      break;
+      case LEFT:
+      case H:
+      case A:
+      leftButtonAction();
+      break;
+      case RIGHT:
+      case L:
+      case D:
+      rightButtonAction();
+      break;
+      default:
+      System.out.println("無効なキーです");
     }
 
   }
@@ -101,7 +101,12 @@ public class MapGameController implements Initializable {
       outputAction("ITEM");
       chara.removeSomething();
       setMapImageViews();
-
+      changeAnimal();
+    }
+    if(chara.human_die()){
+      outputAction("HUMAN_DIE");
+      chara.removeSomething();
+      setMapImageViews();
     }
     // Are You GOALED??
     if(chara.goal()){
@@ -202,18 +207,14 @@ public class MapGameController implements Initializable {
   /*動物の変更*/
   public void changeAnimal(){
     System.out.println("change animal");
-    if(MoveChara.animalNumber==0){
+    if(MoveChara.animalNumber==0) {
       MoveChara.animalNumber=1;
-  chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
-    mapPrint(chara, mapData);
-    }
-    else{
+      chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
+      mapPrint(chara, mapData);
+    } else {
       MoveChara.animalNumber=0;
-        chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
-    mapPrint(chara, mapData);
-
-
-
+      chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
+      mapPrint(chara, mapData);
     }
   }
   public void changeAnimal(ActionEvent event){

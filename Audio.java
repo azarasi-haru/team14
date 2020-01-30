@@ -12,11 +12,14 @@ import javafx.scene.media.AudioClip;
 public class Audio {
   // used by MapGame.java
   // set BGM
-  public static Media bgm = new Media(new File("bgm.wav").toURI().toString());
+  // public static Media bgm = new Media(new File("bgm.wav").toURI().toString());
+  public static Media bgm = new Media(new File("NukoNoMeiro.wav").toURI().toString());
 
   public static Media item = new Media(new File("item.wav").toURI().toString());
 
   public static Media goal = new Media(new File("goal.wav").toURI().toString());
+
+  public static Media damage = new Media(new File("damage.wav").toURI().toString());
 
   public static void playBgm(){
     MediaPlayer bgm_play = new MediaPlayer(bgm);
@@ -33,5 +36,10 @@ public class Audio {
   public static void playGoal(){
     MediaPlayer goal_play = new MediaPlayer(goal);
     goal_play.play();
+  }
+
+  public static void playDamage(){
+    MediaPlayer damage_play = new MediaPlayer(damage);
+    damage_play.play();
   }
 }
