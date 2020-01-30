@@ -207,16 +207,15 @@ public class MapGameController implements Initializable {
   /*動物の変更*/
   public void changeAnimal(){
     System.out.println("change animal");
-    if(MoveChara.animalNumber==0) {
-      MoveChara.animalNumber=1;
-      chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
-      mapPrint(chara, mapData);
-    } else {
-      MoveChara.animalNumber=0;
-      chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
-      mapPrint(chara, mapData);
-    }
+  MoveChara.animalNumber++;
+  if(MoveChara.animalNumber==3){
+    MoveChara.animalNumber=0;
   }
+      chara = new MoveChara(chara.getPosX(),chara.getPosY(),mapData, score);
+      mapPrint(chara, mapData);
+      System.out.println(MoveChara.animalNumber);
+  }
+
   public void changeAnimal(ActionEvent event){
     changeAnimal();
   }

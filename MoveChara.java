@@ -11,7 +11,7 @@ public class MoveChara {
   private final String[] dirStrings  = { "d", "l", "r", "u" };
   private final String[] kindStrings = { "1", "2", "3" };
   static int animalNumber=0;
-  private final String[] pngPathBefore= {"png/neko/neko","png/neko2/neko"};
+  private final String[] pngPathBefore= {"png/neko/neko","png/neko2/neko","png/neko3/neko"};
   private final String pngPathAfter  = ".png";
 
   private int posX;
@@ -30,7 +30,7 @@ public class MoveChara {
 
   MoveChara(int startX, int startY, MapData mapData, Score score){
     this.mapData = mapData;
-    int animals = 2;
+    int animals = 3;
     charaImages = new Image[animals][4][3];
     charaImageViews = new ImageView[animals][4];
     charaImageAnimations = new ImageAnimation[animals][4];
@@ -38,14 +38,18 @@ public class MoveChara {
     for (int i=0; i<4; i++) {
       charaImages[0][i] = new Image[3];
       charaImages[1][i] = new Image[3];
+      charaImages[2][i] = new Image[3];
       for (int j=0; j<3; j++) {
         charaImages[0][i][j] = new Image(pngPathBefore[0] + dirStrings[i] + kindStrings[j] + pngPathAfter);
         charaImages[1][i][j] = new Image(pngPathBefore[1] + dirStrings[i] + kindStrings[j] + pngPathAfter);
+        charaImages[2][i][j] = new Image(pngPathBefore[2] + dirStrings[i] + kindStrings[j] + pngPathAfter);
       }
       charaImageViews[0][i] = new ImageView(charaImages[0][i][0]);
       charaImageViews[1][i] = new ImageView(charaImages[1][i][0]);
+      charaImageViews[2][i] = new ImageView(charaImages[2][i][0]);
       charaImageAnimations[0][i] = new ImageAnimation( charaImageViews[0][i], charaImages[0][i] );
       charaImageAnimations[1][i] = new ImageAnimation( charaImageViews[1][i], charaImages[1][i] );
+      charaImageAnimations[2][i] = new ImageAnimation( charaImageViews[2][i], charaImages[2][i] );
     }
 
     posX = startX;
@@ -120,7 +124,7 @@ public class MoveChara {
       posY += dy;
       Audio.playDamage();
       if(mapData.getSomethingNumber(MapData.TYPE_ITEM) == 0){
-        // 
+        //
       } else if(mapData.getSomethingNumber(MapData.TYPE_ITEM) == 1){
         Score.minusScore(1);
       } else {
