@@ -94,8 +94,9 @@ public class BuiltGameController implements Initializable {
         if (itemExist(x, y)) {
             ImageView view = mapData[x][y].getImageView();
             mapData[x][y].stop();
-            mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+            mapData[x][y] = new AnimationItem(view, "Space,SPACE", false);
             mapData[x][y].start();
+            player.transform();
         }
 
         if (isGoal(x, y)) {
@@ -118,8 +119,9 @@ public class BuiltGameController implements Initializable {
         if (itemExist(x, y)) {
             ImageView view = mapData[x][y].getImageView();
             mapData[x][y].stop();
-            mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+            mapData[x][y] = new AnimationItem(view, "Space,SPACE", false);
             mapData[x][y].start();
+            player.transform();
         }
 
         if (isGoal(x, y)) {
@@ -142,8 +144,9 @@ public class BuiltGameController implements Initializable {
         if (itemExist(x, y)) {
             ImageView view = mapData[x][y].getImageView();
             mapData[x][y].stop();
-            mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+            mapData[x][y] = new AnimationItem(view, "Space,SPACE", false);
             mapData[x][y].start();
+            player.transform();
         }
 
         if (isGoal(x, y)) {
@@ -166,8 +169,9 @@ public class BuiltGameController implements Initializable {
         if (itemExist(x, y)) {
             ImageView view = mapData[x][y].getImageView();
             mapData[x][y].stop();
-            mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+            mapData[x][y] = new AnimationItem(view, "Space,SPACE", false);
             mapData[x][y].start();
+            player.transform();
         }
 
         if (isGoal(x, y)) {
@@ -226,8 +230,11 @@ public class BuiltGameController implements Initializable {
 
                         switch (newItem.attribute) {
                             case Start:
+                                System.out.println("1行目");
                                 player.setPos(x, y);
-                                mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+                                System.out.println("2行目");
+                                mapData[x][y] = new AnimationItem(view, "Space,SPACE", false);
+                                System.out.println("3行目");
                                 break;
                             case Goal:
                                 mapData[x][y] = newItem;
@@ -242,7 +249,7 @@ public class BuiltGameController implements Initializable {
                                 mapData[x][y] = newItem;
                                 break;
                             //case Enemy:
-                            //    mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+                            //    mapData[x][y] = new AnimationItem(view, "Space,SPACE", false);
                             //    break;
                             default:
                                 System.out.println("無効なアイテムです　(x: " + x + ", y: " + y + ")");

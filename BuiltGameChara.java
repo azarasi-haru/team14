@@ -92,7 +92,7 @@ public class BuiltGameChara {
 
     //変身
     public void transform() {
-        if (currentForm == forms.length) {
+        if (currentForm == forms.length - 1) {
             return;
         }
 

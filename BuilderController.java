@@ -54,9 +54,14 @@ public class BuilderController implements SelectorDelegate, Initializable {
     //セレクタにデータを入れるメソッド
     @Override
     public void setData(Selector sender) {
-        final int allCount = Goal.length() + Space.length() + Wall.length();
+        final int allCount = Start.length() + Goal.length() + Space.length() + Wall.length() + Item.length();
         int count = 0;
         sender.items = new AnimationItem[allCount];
+
+        for (Start StartItem : Start.values()) {
+            sender.items[count] = new AnimationItem(selectorView, AnimationItem.Attribute.Start, StartItem.getValue(), false);
+            count++;
+        }
 
         for (Goal goalItem : Goal.values()) {
             sender.items[count] = new AnimationItem(selectorView, AnimationItem.Attribute.Goal, goalItem.getValue(), false);
@@ -74,6 +79,12 @@ public class BuilderController implements SelectorDelegate, Initializable {
             sender.items[count] = new AnimationItem(selectorView, AnimationItem.Attribute.Wall, wallItem.getValue(), false);
             count++;
         }
+
+        //アイテムを追加してるとこ
+        for (Item item : Item.values()) {
+            sender.items[count] = new AnimationItem(selectorView, AnimationItem.Attribute.Item, item.getValue(), false);
+            count++;
+        }
 /*
         //敵キャラを追加してるとこ
         for (Enemy enemyItem : Enemy.values()) {
@@ -81,6 +92,25 @@ public class BuilderController implements SelectorDelegate, Initializable {
             count++;
         }
 */
+    }
+
+    //スタートを追加するならココへ
+    protected enum Start {
+        start("start");
+
+        private String name;
+
+        private Start(String name) {
+            this.name = name;
+        }
+
+        public String getValue() {
+            return name;
+        }
+
+        public static int length() {
+            return Start.values().length;
+        }
     }
 
     //ゴールを追加するならココへ
@@ -100,7 +130,6 @@ public class BuilderController implements SelectorDelegate, Initializable {
         public static int length() {
             return Goal.values().length;
         }
-
     }
 
     //壁を増やすならココへ
@@ -138,6 +167,25 @@ public class BuilderController implements SelectorDelegate, Initializable {
 
         public static int length() {
             return Wall.values().length;
+        }
+    }
+
+    //空白を増やすならココへ
+    protected enum Item {
+        item("item");
+
+        private String name;
+
+        private Item(String name) {
+            this.name = name;
+        }
+
+        public String getValue() {
+            return name;
+        }
+
+        public static int length() {
+            return Item.values().length;
         }
     }
 
@@ -259,7 +307,7 @@ public class BuilderController implements SelectorDelegate, Initializable {
 
                         switch (newItem.attribute) {
                             case Start:
-                                data[x][y] = new AnimationItem(view, "Space:SPACE", true);
+                                data[x][y] = new AnimationItem(view, "Start,start", true);
                                 break;
                             case Goal:
                                 data[x][y] = newItem;
@@ -274,7 +322,7 @@ public class BuilderController implements SelectorDelegate, Initializable {
                                 data[x][y] = newItem;
                                 break;
                             //case Enemy:
-                            //    mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+                            //    mapData[x][y] = new AnimationItem(view, "Space,SPACE", false);
                             //    break;
                             default:
                                 System.out.println("無効なアイテムです　(x: " + x + ", y: " + y + ")");
