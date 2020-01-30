@@ -91,6 +91,17 @@ public class BuiltGameController implements Initializable {
             player.goDown();
         }
 
+        if (itemExist(x, y)) {
+            ImageView view = mapData[x][y].getImageView();
+            mapData[x][y].stop();
+            mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+            mapData[x][y].start();
+        }
+
+        if (isGoal(x, y)) {
+            MapGame.getInstance().toResult();
+        }
+
         printMap();
     }
 
@@ -102,6 +113,17 @@ public class BuiltGameController implements Initializable {
 
         if (canMoveTo(x, y)) {
             player.goLeft();
+        }
+
+        if (itemExist(x, y)) {
+            ImageView view = mapData[x][y].getImageView();
+            mapData[x][y].stop();
+            mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+            mapData[x][y].start();
+        }
+
+        if (isGoal(x, y)) {
+            MapGame.getInstance().toResult();
         }
 
         printMap();
@@ -117,6 +139,17 @@ public class BuiltGameController implements Initializable {
             player.goRight();
         }
 
+        if (itemExist(x, y)) {
+            ImageView view = mapData[x][y].getImageView();
+            mapData[x][y].stop();
+            mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+            mapData[x][y].start();
+        }
+
+        if (isGoal(x, y)) {
+            MapGame.getInstance().toResult();
+        }
+
         printMap();
     }
     
@@ -130,12 +163,33 @@ public class BuiltGameController implements Initializable {
             player.goUp();
         }
 
+        if (itemExist(x, y)) {
+            ImageView view = mapData[x][y].getImageView();
+            mapData[x][y].stop();
+            mapData[x][y] = new AnimationItem(view, "Space:SPACE", false);
+            mapData[x][y].start();
+        }
+
+        if (isGoal(x, y)) {
+            MapGame.getInstance().toResult();
+        }
+
         printMap();
     }
 
     //動けるかどうかの判定
     public boolean canMoveTo(int x, int y) {
         return !(mapData[x][y].attribute == AnimationItem.Attribute.Wall);
+    }
+
+    //アイテムがあるかどうかの判定
+    public boolean itemExist(int x, int y) {
+        return mapData[x][y].attribute == AnimationItem.Attribute.Item;
+    }
+
+    //ゴールかどうかの確認
+    public boolean isGoal(int x, int y) {
+        return mapData[x][y].attribute == AnimationItem.Attribute.Goal;
     }
 
     //Aボタン
