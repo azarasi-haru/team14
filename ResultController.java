@@ -6,6 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
 
 public class ResultController implements Initializable {
 
@@ -15,10 +19,24 @@ public class ResultController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("イニシャライザ");
-        scoreLabel.setText("こんちわ");
-    }
+        try{
+          File file = new File("score.txt");
+          FileReader fileReader = new FileReader(file);
+          BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+          String data;
+
+          while((data = bufferedReader.readLine()) != null){
+            scoreLabel.setText(data);
+          }
+          bufferedReader.close();
+        }catch(IOException e){
+          e.printStackTrace();
+        }
+    }
+    public void startButtonAction(ActionEvent event) {
+      MapGame.getInstance().toGame();
+    }
     public void closeButtonAction(ActionEvent event) {
         System.exit(0);
     }
