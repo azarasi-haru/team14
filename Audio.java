@@ -25,7 +25,7 @@ public class Audio {
     MediaPlayer bgm_play = new MediaPlayer(bgm);
     // 無限ループ
     bgm_play.setCycleCount(MediaPlayer.INDEFINITE);
-    // bgm_play.setAutoPlay(true);
+    bgm_play.setAutoPlay(true);
   }
 
   public static void playItem(){
